@@ -15,5 +15,7 @@ let data = """1000
 
 data.Split "\n\n"
 |> Seq.map (fun elf -> elf.Split '\n' |> Seq.sumBy int)
-|> Seq.max
+|> Seq.sortDescending
+|> Seq.take 3
+|> Seq.sum
 |> stdout.WriteLine
