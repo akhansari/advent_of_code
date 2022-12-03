@@ -13,6 +13,8 @@ let input = "1000
 
 10000"
 
+(* Play with function compositions *)
+
 let parse (data: string) =
     data.Split "\n\n"
     |> Seq.map (fun elf -> elf.Split '\n' |> Seq.sumBy int)

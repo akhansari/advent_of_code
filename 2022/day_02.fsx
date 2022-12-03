@@ -4,23 +4,25 @@ let input = "A Y
 B X
 C Z"
 
+(* Play with Active Patterns *)
+
 let (|Rock|Paper|Scissors|) = function
     | 'A' | 'X' -> Rock
     | 'B' | 'Y' -> Paper
     | 'C' | 'Z' -> Scissors
-    | c -> ArgumentOutOfRangeException($"Shape '{c}'") |> raise
+    | c -> ArgumentOutOfRangeException() |> raise
 
 let (|Win|Draw|Loss|) = function
     | Rock, Scissors | Paper, Rock | Scissors, Paper -> Win
     | Rock, Rock | Paper, Paper | Scissors, Scissors -> Draw
     | Rock, Paper | Paper, Scissors | Scissors, Rock -> Loss
 
-let (|Weight|) = function
-    Rock -> 1 | Paper -> 2 | Scissors -> 3
-
 let (|ToWin|ToDraw|ToLose|) = function
     | 'X' -> ToLose | 'Y' -> ToDraw | 'Z' -> ToWin
-    | c -> ArgumentOutOfRangeException($"Shape '{c}'") |> raise
+    | c -> ArgumentOutOfRangeException() |> raise
+
+let (|Weight|) = function
+    Rock -> 1 | Paper -> 2 | Scissors -> 3
 
 let (|ReverseWeight|) = function
     | ToDraw, Rock | ToWin, Scissors | ToLose, Paper -> 1
@@ -32,7 +34,7 @@ let strategyOne turns =
         match (player, opponent), player with
         | Win,  Weight w -> w + 6
         | Draw, Weight w -> w + 3
-        | Loss, Weight w -> w + 0)
+        | Loss, Weight w -> w)
 
 let strategyTwo turns =
     turns |> Seq.sumBy (fun (opponent, todo) ->
