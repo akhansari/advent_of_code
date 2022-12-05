@@ -1,4 +1,3 @@
-open System
 open System.Text.RegularExpressions
 
 let input = "2-4,6-8
