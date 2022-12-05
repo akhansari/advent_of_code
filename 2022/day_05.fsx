@@ -30,7 +30,7 @@ let parse lines =
         if String.IsNullOrWhiteSpace line then
             ()
         elif line.StartsWith " 1 " then
-            stacksCount <- line.Split " " |> Array.last |> int
+            stacksCount <- line.Trim().Split " " |> Array.last |> int
         elif line.StartsWith "move" then
             let g = regex.Match(line).Groups
             (int g[1].Value, int g[2].Value, int g[3].Value) |> moves.Add
@@ -40,7 +40,7 @@ let parse lines =
             |> Seq.toArray
             |> cratesPerLine.Add
 
-    let stacks = [| for _ in 1 .. stacksCount -> List() |]
+    let stacks = Array.init stacksCount (fun _ -> List())
     for crates in cratesPerLine do
         for i = 0 to crates.Length - 1 do
             if crates[i] <> ' ' then
@@ -51,10 +51,10 @@ let parse lines =
 
 let move crateMover data =
     let stacks = data.Stacks |> Array.map Stack
-    for (count, from, to') in data.Moves do
-        [| for _ in 1 .. count -> stacks[from-1].Pop() |]
-        |> if crateMover = CrateMover9001 then Array.rev else id
-        |> Array.iter stacks[to'-1].Push
+    for (count, from, dest) in data.Moves do
+        Array.init count (fun _ -> stacks[from-1].Pop())
+        |> match crateMover with CrateMover9000 -> id | CrateMover9001 -> Array.rev
+        |> Array.iter stacks[dest-1].Push
     stacks |> Array.map (fun s -> s.Peek()) |> String
 
 let data = input.Split "\n" |> parse
