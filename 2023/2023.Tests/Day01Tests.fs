@@ -3,7 +3,7 @@ module Day01.Tests
 open Xunit
 
 [<Fact>]
-let Sample () =
+let ``Part two`` () =
     let sample =
         "two1nine
 eightwothree
@@ -12,9 +12,9 @@ xtwone3four
 4nineeightseven2
 zoneight234
 7pqrstsixteen"
-    Assert.Equal(281, split sample |> run)
+    281 =! (splitLines sample |> run)
     
 [<Fact>]
-let Tricky () =
-    Assert.Equal(79, run [| "sevenine" |])
+let ``Tricky combination`` () =
+    79 =! (run [| "sevenine" |])
     

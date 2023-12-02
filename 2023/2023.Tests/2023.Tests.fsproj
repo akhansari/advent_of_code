@@ -9,7 +9,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="Tools.fs" />
         <Compile Include="Day01Tests.fs" />
+        <Compile Include="Day02Tests.fs" />
         <Compile Include="Program.fs"/>
     </ItemGroup>
 
