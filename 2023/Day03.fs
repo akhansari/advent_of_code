@@ -23,31 +23,27 @@ let runPartOne (lines: string array) =
     |> Seq.sum
 
 let runPartTwo (lines: string array) =
-    let data =
-        lines
-        |> Seq.mapi (fun index line ->
-            {| Row = index
-               Numbers = extractNumbers line
-               Gears = Regex(@"\*").Matches line |> Seq.map (fun m -> m.Index) |> Seq.toList |})
-        |> Seq.toList
+
+    let data = lines |> Array.mapi (fun index line ->
+        {| Row = index
+           Numbers = extractNumbers line
+           Gears = Regex(@"\*").Matches line |> Seq.map (fun m -> m.Index) |> Seq.toArray |})
+
     data
-    |> Seq.filter (fun line -> line.Gears.Length > 0)
-    |> Seq.sumBy (fun line ->
-        line.Gears
-        |> Seq.sumBy (fun gear ->
-            let numbers = [
-                 // behind
-                 yield! line.Numbers |> Seq.choose (fun (num, numIndex, numLen) ->
-                     if gear = numIndex+numLen || gear = numIndex-1 then Some num else None)
-                 // above
-                 if line.Row > 0 then
-                     yield! data[line.Row-1].Numbers
-                     |> Seq.choose (fun (num, numIndex, numLen) ->
-                         if gear >=< (numIndex-1, numIndex+numLen) then Some num else None)
-                 // below
-                 if line.Row < data.Length-1 then
-                     yield! data[line.Row+1].Numbers
-                     |> Seq.choose (fun (num, numIndex, numLen) ->
-                         if gear >=< (numIndex-1, numIndex+numLen) then Some num else None)
-            ]
-            if numbers.Length = 2 then numbers[0] * numbers[1] else 0))
+    |> Array.sumBy (fun line -> line.Gears |> Array.sumBy (fun gear ->
+        let numbers = [
+             // on the side
+             yield! line.Numbers |> Seq.choose (fun (num, numIndex, numLen) ->
+                 if gear = numIndex+numLen || gear = numIndex-1 then Some num else None)
+             // above
+             if line.Row > 0 then
+                 yield! data[line.Row-1].Numbers
+                 |> Seq.choose (fun (num, numIndex, numLen) ->
+                     if gear >=< (numIndex-1, numIndex+numLen) then Some num else None)
+             // below
+             if line.Row < data.Length-1 then
+                 yield! data[line.Row+1].Numbers
+                 |> Seq.choose (fun (num, numIndex, numLen) ->
+                     if gear >=< (numIndex-1, numIndex+numLen) then Some num else None)
+        ]
+        if numbers.Length = 2 then numbers[0] * numbers[1] else 0))
