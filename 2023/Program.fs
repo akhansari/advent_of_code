@@ -1,3 +1,3 @@
-﻿load 2
-|> Day02.run
+﻿load 3
+|> Day03.runPartTwo
 |> printfn "%A"

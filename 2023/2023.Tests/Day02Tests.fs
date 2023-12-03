@@ -12,7 +12,7 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green"
 [<Fact>]
 let ``Part one`` () =
     8 =! (splitLines sample |> runPartOne)
-    
+
 [<Fact>]
 let ``Part two`` () =
-    2286 =! (splitLines sample |> run)
+    2286 =! (splitLines sample |> runPartTwo)

@@ -19,5 +19,5 @@ let findLast = lastExp.Match >> toDigit
 
 let run =
     Array.fold (fun sum line ->
-      findFirst line * 10 + findLast line + sum
-      ) 0
+        findFirst line * 10 + findLast line + sum
+        ) 0

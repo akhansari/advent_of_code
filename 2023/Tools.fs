@@ -12,3 +12,5 @@ let split (sep: char) (str: string) =
 
 let load (day: int32) =
     File.ReadAllLines $"""./inputs/day_{day.ToString "00"}.txt"""
+
+let inline (>=<) num (left, right) = num >= left && num <= right
