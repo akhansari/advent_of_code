@@ -27,26 +27,20 @@ let runPartOne =
 
 let runPartTwo lines =
 
-    let cards =
-        lines
-        |> Array.map (fun line ->
-            let card = parse line
-            card.Id, findMatchingNumbers card |> Set.count)
+    let cardsMatchingNumbers = lines |> Array.map (fun line ->
+        let card = parse line
+        card.Id, findMatchingNumbers card |> Set.count)
 
-    let initialCopies =
-        cards |> Seq.map (fun (id, _) -> id, 1) |> Map
-
-    (initialCopies, cards)
-    ||> Array.fold
-        (fun copies (cardId, matchingNumbers) ->
-            let rec update id innerCopies =
-                if id > (cardId + matchingNumbers) then
-                    innerCopies
-                else
-                    innerCopies
-                    |> Map.change id (function
-                        | Some v -> v + innerCopies[cardId] |> Some
-                        | None -> Some innerCopies[cardId])
-                    |> update (id + 1)
-            update (cardId + 1) copies)
+    (Seq.map (fun (id, _) -> id, 1) cardsMatchingNumbers |> Map, cardsMatchingNumbers)
+    ||> Array.fold (fun copies (cardId, matchingNumbers) ->
+        let rec update id innerCopies =
+            if id > (cardId + matchingNumbers) then
+                innerCopies
+            else
+                innerCopies
+                |> Map.change id (function
+                    | Some n -> n + innerCopies[cardId] |> Some
+                    | v -> v)
+                |> update (id + 1)
+        update (cardId + 1) copies)
     |> Map.fold (fun sum _ copies -> sum + copies) 0
