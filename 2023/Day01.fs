@@ -18,6 +18,5 @@ let findFirst = firstExp.Match >> toDigit
 let findLast = lastExp.Match >> toDigit
 
 let run =
-    Array.fold (fun sum line ->
-        findFirst line * 10 + findLast line + sum
-        ) 0
+    Array.sumBy (fun line ->
+        findFirst line * 10 + findLast line)

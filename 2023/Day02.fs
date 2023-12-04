@@ -11,22 +11,21 @@ let getNums str (r: Regex) =
     r.Matches str |> Seq.map (_.Groups[1].Value >> Int32.Parse)
 
 let runPartOne =
-    Array.fold (fun sum line ->
-        let lessThan exp max =
+    Array.sumBy (fun line ->
+        let lessThan max exp =
             getNums line exp |> Seq.forall (fun n -> n <= max)
         match
-           lessThan redExp 12,
-           lessThan greenExp 13,
-           lessThan blueExp 14
+            lessThan 12 redExp,
+            lessThan 13 greenExp,
+            lessThan 14 blueExp
         with
-        | true, true, true -> Seq.head (getNums line gameExp) + sum
-        | _ -> sum
-        ) 0
+        | true, true, true ->
+            getNums line gameExp |> Seq.head
+        | _ ->
+            0)
 
 let runPartTwo =
-    Array.fold (fun sum line ->
+    Array.sumBy (fun line ->
        Seq.max   (getNums line redExp)
        * Seq.max (getNums line greenExp)
-       * Seq.max (getNums line blueExp)
-       + sum
-       ) 0
+       * Seq.max (getNums line blueExp))
