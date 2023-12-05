@@ -1,20 +1,14 @@
 ﻿module Day04
 
-open System
-open System.Text.RegularExpressions
-
 type Card = { Id: int; Winning: Set<int>; Player: Set<int> }
 
 let parse line =
-    let extractNumbers str =
-        Regex("[0-9]+").Matches str
-        |> Seq.map (fun m -> Int32.Parse m.Value)
-        |> Set
-    let card = split ':' line
-    let numbers = split '|' card[1]
-    { Id = extractNumbers card[0] |> Seq.head
-      Winning = extractNumbers numbers[0]
-      Player = extractNumbers numbers[1] }
+    let get = extractInt32 >> Set
+    let card = split ":" line
+    let numbers = split "|" card[1]
+    { Id = extractInt32 card[0] |> Seq.head
+      Winning = get numbers[0]
+      Player = get numbers[1] }
 
 let findMatchingNumbers card =
     Set.intersect card.Winning card.Player

@@ -5,7 +5,7 @@ open System.Collections.Generic
 open System.Text.RegularExpressions
 
 let extractNumbers str =
-    Regex("[0-9]+").Matches str
+    Regex(@"\d+").Matches str
     |> Seq.map (fun m ->
         {| Value = Int32.Parse m.Value
            StartIndex = m.Index
