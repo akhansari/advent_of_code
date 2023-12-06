@@ -11,7 +11,7 @@ let splitLines (str: string) =
 let split (sep: string) (str: string) =
     str.Split(sep, StringSplitOptions.RemoveEmptyEntries)
 
-let load (day: int32) =
+let loadLines (day: int32) =
     File.ReadAllLines $"""./inputs/day_{day.ToString "00"}.txt"""
 
 let loadText (day: int32) =
@@ -26,3 +26,8 @@ let extractInt32 str =
 let extractInt64 str =
     Regex(@"\d+").Matches str
     |> Seq.map (fun m -> Int64.Parse m.Value)
+
+let createTimer () =
+    let sw = System.Diagnostics.Stopwatch.StartNew()
+    { new IDisposable with
+        member x.Dispose() = printfn $"{sw.Elapsed}"}
