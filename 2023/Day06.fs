@@ -19,6 +19,4 @@ let runPartOne (lines: string array) =
 let runPartTwo (lines: string array) =
     let time = lines[0].Substring("Time:".Length).Replace(" ", "") |> Double.Parse
     let distance = lines[1].Substring("Distance:".Length).Replace(" ", "") |> Double.Parse
-    let high = (time + sqrt(time*time - 4.*distance)) / 2.
-    let low  = (time - sqrt(time*time - 4.*distance)) / 2.
-    high - low |> int64
+    sqrt(time**2 - 4.*distance) |> int64
