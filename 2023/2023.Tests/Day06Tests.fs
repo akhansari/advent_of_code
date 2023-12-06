@@ -8,7 +8,7 @@ Distance:  9  40  200"
 
 [<Fact>]
 let ``Part one`` () =
-    288L =! (splitLines sample |> runPartOne)
+    288 =! (splitLines sample |> runPartOne)
 
 [<Fact>]
 let ``Part two`` () =
