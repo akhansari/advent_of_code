@@ -1,13 +1,12 @@
 ﻿module Day03
 
-open System
 open System.Collections.Generic
 open System.Text.RegularExpressions
 
 let extractNumbers str =
     Regex(@"\d+").Matches str
     |> Seq.map (fun m ->
-        {| Value = Int32.Parse m.Value
+        {| Value = int32 m.Value
            StartIndex = m.Index
            EndIndex = m.Index + m.Value.Length |})
     |> Seq.toList

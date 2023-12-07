@@ -21,13 +21,13 @@ let inline (>=<) num (left, right) = num >= left && num <= right
 
 let extractInt32 str =
     Regex(@"\d+").Matches str
-    |> Seq.map (fun m -> Int32.Parse m.Value)
+    |> Seq.map (fun m -> int32 m.Value)
 
 let extractInt64 str =
     Regex(@"\d+").Matches str
-    |> Seq.map (fun m -> Int64.Parse m.Value)
+    |> Seq.map (fun m -> int64 m.Value)
 
-let createTimer () =
+let measureElapsedTime () =
     let sw = System.Diagnostics.Stopwatch.StartNew()
     { new IDisposable with
-        member x.Dispose() = printfn $"{sw.Elapsed}"}
+        member _.Dispose() = printfn $"{sw.Elapsed}" }

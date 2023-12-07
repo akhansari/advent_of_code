@@ -1,6 +1,5 @@
 module Day01
 
-open System
 open System.Text.RegularExpressions
 
 let digitsStr =
@@ -12,7 +11,7 @@ let firstExp = Regex(pattern, RegexOptions.Compiled)
 let lastExp = Regex(pattern, RegexOptions.Compiled ||| RegexOptions.RightToLeft)
 let toDigit (m: Match) =
     if m.Value.Length = 1
-    then Int32.Parse m.Value
+    then int32 m.Value
     else digitsStr[m.Value]
 let findFirst = firstExp.Match >> toDigit
 let findLast = lastExp.Match >> toDigit

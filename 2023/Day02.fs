@@ -1,14 +1,13 @@
 ﻿module Day02
 
-open System
 open System.Text.RegularExpressions
 
-let gameExp = Regex "Game (\d+):"
-let redExp = Regex "(\d+) red"
-let greenExp = Regex "(\d+) green"
-let blueExp = Regex "(\d+) blue"
+let gameExp = Regex @"Game (\d+):"
+let redExp = Regex @"(\d+) red"
+let greenExp = Regex @"(\d+) green"
+let blueExp = Regex @"(\d+) blue"
 let getNums str (r: Regex) =
-    r.Matches str |> Seq.map (_.Groups[1].Value >> Int32.Parse)
+    r.Matches str |> Seq.map (_.Groups[1].Value >> int32)
 
 let runPartOne =
     Array.sumBy (fun line ->
