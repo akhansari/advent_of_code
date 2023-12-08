@@ -11,13 +11,13 @@ type Hand =
     | FourKind
     | FiveKind
 
-let hand mapCard fixCounts cards =
+let hand setJokers cards =
     cards
     |> Seq.toList
     |> List.countBy id
-    |> List.sortByDescending (fun (card, length) -> length, mapCard card)
     |> List.map snd
-    |> fixCounts
+    |> List.sortDescending
+    |> setJokers
     |> function
     | [ 5 ]       -> FiveKind
     | [ 4; 1 ]    -> FourKind
@@ -31,8 +31,7 @@ module PartOne =
     let mapCard = function
         | 'T' -> 10 | 'J' -> 11 | 'Q' -> 12 | 'K' -> 13 | 'A' -> 14
         | c -> Char.GetNumericValue c |> int
-    let hand =
-        hand mapCard id
+    let hand = hand id
     let mapSort cards =
         hand cards, cards |> Seq.map (mapCard >> sprintf "%02i") |> String.concat ""
 
@@ -42,9 +41,9 @@ module PartTwo =
         | c -> Char.GetNumericValue c |> int
     let hand (cards: string) =
         let jokers = cards |> Seq.filter ((=) 'J') |> Seq.length
-        let fix = function first :: tail -> first+jokers :: tail | [] -> [ 5 ]
-        cards.Replace("J", "") |> hand mapCard fix
-    let mapSort (cards: string) =
+        let setJokers = function first :: tail -> first+jokers :: tail | [] -> [ 5 ]
+        cards.Replace("J", "") |> hand setJokers
+    let mapSort cards =
         hand cards, cards |> Seq.map (mapCard >> sprintf "%02i") |> String.concat ""
 
 let run mapSort lines =
