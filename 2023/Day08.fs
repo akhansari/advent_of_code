@@ -1,5 +1,7 @@
 ﻿module Day08
 
+open Microsoft.FSharp.Core.Operators.Checked
+
 let parse (lines: string array) =
     let directions =
         lines[0]
@@ -9,7 +11,7 @@ let parse (lines: string array) =
         let parts = split " = (" line[..line.Length-2]
         let tuple = split ", " parts[1]
         parts[0], tuple)
-    directions, readOnlyDict mappings
+    directions, Map mappings
 
 let runPartOne lines =
     let directions, mappings = parse lines
