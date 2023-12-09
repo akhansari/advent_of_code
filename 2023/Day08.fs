@@ -22,6 +22,7 @@ let runPartOne lines =
             find (steps+1) nextKey nextDir
     find 1 (Seq.head mappings.Keys) directions[0]
 
+// https://en.wikipedia.org/wiki/Least_common_multiple
 let rec gcd (a: int64) (b: int64) = if b = 0 then a else gcd b (a % b)
 let lcm a b = (a * b) / gcd a b
 

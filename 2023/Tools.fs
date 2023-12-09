@@ -20,11 +20,11 @@ let loadText (day: int32) =
 let inline (>=<) num (left, right) = num >= left && num <= right
 
 let extractInt32 str =
-    Regex(@"\d+").Matches str
+    Regex(@"-?\d+").Matches str
     |> Seq.map (fun m -> int32 m.Value)
 
 let extractInt64 str =
-    Regex(@"\d+").Matches str
+    Regex(@"-?\d+").Matches str
     |> Seq.map (fun m -> int64 m.Value)
 
 let measureElapsedTime () =

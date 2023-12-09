@@ -1,3 +1,3 @@
-﻿loadLines 8
-|> Day08.runPartTwo
+﻿loadLines 9
+|> Day09.runPartTwo
 |> printfn "%A"
