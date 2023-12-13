@@ -34,3 +34,20 @@ let measureElapsedTime () =
 
 let print o = printfn $"%A{o}"; o
 let printAll o = Seq.iter (printfn "%A") o; o
+
+module Array2D =
+
+    let find value (arr: _ [,]) =
+        let rec go x y =
+            if   y >= arr.GetLength 1 then None
+            elif x >= arr.GetLength 0 then go 0 (y+1)
+            elif arr[x,y] = value     then Some (x,y)
+            else go (x+1) y
+        go 0 0
+
+    let foldi (folder: int -> int -> 'S -> 'T -> 'S) (state: 'S) (array: 'T[,]) =
+        let mutable state = state
+        for x in 0 .. Array2D.length1 array - 1 do
+            for y in 0 .. Array2D.length2 array - 1 do
+                state <- folder x y state array[x, y]
+        state
