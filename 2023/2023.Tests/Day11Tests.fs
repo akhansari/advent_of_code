@@ -16,12 +16,12 @@ let sample =
 
 [<Fact>]
 let ``Part one`` () =
-    374L =! (sample |> runPartOne)
+    374L =! (splitLines sample |> runPartOne)
 
 [<Fact>]
 let ``Part two, 10 times`` () =
-    1030L =! (sample |> parse |> run 10)
+    1030L =! (splitLines sample |> parse |> run 10)
 
 [<Fact>]
 let ``Part two, 100 times`` () =
-    8410L =! (sample |> parse |> run 100)
+    8410L =! (splitLines sample |> parse |> run 100)

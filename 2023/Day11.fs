@@ -1,13 +1,11 @@
 ﻿module Day11
 
-open Microsoft.FSharp.Core.Operators.Checked
-
-let parse content =
-   splitLines content |> Array.map Array.ofSeq |> array2D
+let parse (lines: string array) =
+   lines |> Array.map Array.ofSeq |> array2D
 
 let rec getCombinations = function
     | [] | [_] -> []
-    | x :: xs -> List.map (fun y -> x, y) xs @ getCombinations xs
+    | x :: tail -> List.map (fun y -> x, y) tail @ getCombinations tail
 
 let getGalaxies = Array2D.foldi (fun x y list v ->
       if v = '#' then (x, y) :: list else list) []
@@ -16,11 +14,11 @@ let run multiplier universe =
    let abs = abs >> int64
    let multiplier = if multiplier > 1L then multiplier-1L else 1L
 
-   let emptyRows = [|
-      for x in 0..Array2D.length1 universe - 1 do
+   let emptyRows =
+      [| for x in 0..Array2D.length1 universe - 1 do
          if universe[x,*] |> Array.forall ((=) '.') then x |]
-   let emptyCols = [|
-      for y in 0..Array2D.length2 universe - 1 do
+   let emptyCols =
+      [| for y in 0..Array2D.length2 universe - 1 do
          if universe[*,y] |> Array.forall ((=) '.') then y |]
 
    let countSteps (x1,y1) (x2,y2) =
