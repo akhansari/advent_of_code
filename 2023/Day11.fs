@@ -12,7 +12,7 @@ let getGalaxies = Array2D.foldi (fun x y list v ->
 
 let run multiplier universe =
    let abs = abs >> int64
-   let multiplier = if multiplier > 1L then multiplier-1L else 1L
+   let multiplier = multiplier - 1L
 
    let emptyRows =
       [| for x in 0..Array2D.length1 universe - 1 do
@@ -30,7 +30,6 @@ let run multiplier universe =
    |> getCombinations
    |> List.sumBy ((<||) countSteps)
 
-let runPartOne = parse >> run 1L
+let runPartOne = parse >> run 2L
 
 let runPartTwo = parse >> run 1_000_000L
-
