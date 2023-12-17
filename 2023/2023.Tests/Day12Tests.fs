@@ -1,0 +1,19 @@
+﻿module Day12.Tests
+
+open Xunit
+
+let sample =
+    "???.### 1,1,3
+.??..??...?##. 1,1,3
+?#?#?#?#?#?#?#? 1,3,1,6
+????.#...#... 4,1,1
+????.######..#####. 1,6,5
+?###???????? 3,2,1"
+
+[<Fact>]
+let ``Part one`` () =
+    -1 =! (splitLines sample |> runPartOne)
+
+[<Fact>]
+let ``Part two`` () =
+    -1 =! (splitLines sample |> runPartOne)

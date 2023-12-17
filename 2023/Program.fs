@@ -1,3 +1,4 @@
-﻿loadLines 11
-|> Day11.runPartTwo
-|> printfn "%A"
+﻿let run () =
+    use _ = measureElapsedTime ()
+    loadText 13 |> Day13.runPartTwo |> printfn "%A"
+run ()
