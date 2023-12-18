@@ -30,6 +30,6 @@ let run multiplier universe =
    |> getCombinations
    |> List.sumBy ((<||) countSteps)
 
-let runPartOne = parse >> run 2L
+let runPartOne lines = lines |> parse |> run 2L
 
-let runPartTwo = parse >> run 1_000_000L
+let runPartTwo lines = lines |> parse |> run 1_000_000L

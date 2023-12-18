@@ -29,7 +29,7 @@ let find pattern =
     |> Option.defaultWith (fun () ->
         lines |> transpose |> findHorizontal |> Option.get)
 
-let runPartOne = split "\n\n" >> Seq.sumBy find
+let runPartOne content = split "\n\n" content |> Seq.sumBy find
 
 let hasSmudge (a: string) (b: string) =
     let rec go i eq =
@@ -69,4 +69,4 @@ let findWithSmudge pattern =
     |> Option.defaultWith (fun () ->
         lines |> transpose |> findHorizontalWithSmudge |> Option.get)
 
-let runPartTwo = split "\n\n" >> Seq.sumBy findWithSmudge
+let runPartTwo content = split "\n\n" content |> Seq.sumBy findWithSmudge

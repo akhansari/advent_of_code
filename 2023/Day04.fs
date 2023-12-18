@@ -13,11 +13,11 @@ let parse line =
 let findMatchingNumbers card =
     Set.intersect card.Winning card.Player
 
-let runPartOne =
-    parse
-    >> findMatchingNumbers
-    >> fun numbers -> 2. ** (float numbers.Count - 1.) |> int
-    |> Array.sumBy
+let runPartOne lines =
+    lines
+    |> Array.sumBy (fun lines ->
+        let count = lines |> parse |> findMatchingNumbers |> Set.count
+        2. ** (float count - 1.) |> int)
 
 let runPartTwo lines =
 

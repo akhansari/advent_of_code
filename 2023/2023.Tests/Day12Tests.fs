@@ -12,8 +12,8 @@ let sample =
 
 [<Fact>]
 let ``Part one`` () =
-    -1 =! (splitLines sample |> runPartOne)
+    0 =! (splitLines sample |> runPartOne)
 
 [<Fact>]
 let ``Part two`` () =
-    -1 =! (splitLines sample |> runPartOne)
+    0 =! (splitLines sample |> runPartOne)

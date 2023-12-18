@@ -16,6 +16,7 @@ let toDigit (m: Match) =
 let findFirst = firstExp.Match >> toDigit
 let findLast = lastExp.Match >> toDigit
 
-let run =
-    Array.sumBy (fun line ->
+let runPartTwo lines =
+    lines
+    |> Array.sumBy (fun line ->
         findFirst line * 10 + findLast line)

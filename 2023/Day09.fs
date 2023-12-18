@@ -9,5 +9,7 @@ let rec arrange numbers =
 let extrapolate = arrange >> List.sumBy List.last
 
 let parse = Array.map (extractInt32 >> Seq.toList)
-let runPartOne = parse >> Array.sumBy extrapolate
-let runPartTwo = parse >> Array.map List.rev >> Array.sumBy extrapolate
+let runPartOne lines =
+    lines |> parse |> Array.sumBy extrapolate
+let runPartTwo lines =
+    lines |> parse |> Array.map List.rev |> Array.sumBy extrapolate

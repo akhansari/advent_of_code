@@ -9,8 +9,8 @@ let blueExp = Regex @"(\d+) blue"
 let getNums str (r: Regex) =
     r.Matches str |> Seq.map (_.Groups[1].Value >> int32)
 
-let runPartOne =
-    Array.sumBy (fun line ->
+let runPartOne lines =
+    lines |> Array.sumBy (fun line ->
         let lessThan max exp =
             getNums line exp |> Seq.forall (fun n -> n <= max)
         match
@@ -23,8 +23,9 @@ let runPartOne =
         | _ ->
             0)
 
-let runPartTwo =
-    Array.sumBy (fun line ->
+let runPartTwo lines =
+    lines
+    |> Array.sumBy (fun line ->
        Seq.max   (getNums line redExp)
        * Seq.max (getNums line greenExp)
        * Seq.max (getNums line blueExp))

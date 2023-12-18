@@ -55,5 +55,5 @@ let run mapSort lines =
     |> Array.fold (fun (sum, rank) (_, bids) -> sum+(bids*rank), rank+1) (0, 1)
     |> fst
 
-let runPartOne = run PartOne.mapSort
-let runPartTwo = run PartTwo.mapSort
+let runPartOne lines = run PartOne.mapSort lines
+let runPartTwo lines = run PartTwo.mapSort lines
