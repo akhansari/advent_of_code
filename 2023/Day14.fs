@@ -26,7 +26,7 @@ let roll direction (grid: char[,]) =
         else
             x,y
 
-    let switch x y =
+    let swap x y =
         if grid[x,y] = 'O' then
             let nx,ny = farthestPoint (x,y)
             grid[x,y] <- '.'
@@ -36,19 +36,19 @@ let roll direction (grid: char[,]) =
     | North ->
         for x in 1..rows-1 do
             for y in 0..cols-1 do
-                switch x y
+                swap x y
     | West ->
         for y in 1..cols-1 do
             for x in 0..rows-1 do
-                switch x y
+                swap x y
     | South ->
         for x in rows-2..-1..0 do
             for y in 0..cols-1 do
-                switch x y
+                swap x y
     | East ->
         for y in cols-2..-1..0 do
             for x in 0..rows-1 do
-                switch x y
+                swap x y
 
 let scoreOf grid =
     let rows = Array2D.length1 grid
@@ -71,24 +71,24 @@ let runPartTwo content =
     // https://en.wikipedia.org/wiki/Cycle_detection
     // https://www.educative.io/answers/why-does-floyds-cycle-detection-algorithm-work
 
-    let seen = Dictionary()
+    let cycleSteps = Dictionary()
     let cycleHead =
         (parse content, 0)
         |> Seq.unfold (fun (grid, index) ->
             let key = Array2D.toString grid
-            if seen.ContainsKey key then
+            if cycleSteps.ContainsKey key then
                 None
             else
-                seen.Add(key, index)
+                cycleSteps.Add(key, index)
                 spinCycle grid
                 Some (grid, (grid, index+1)))
         |> Seq.last
 
-    let cycleStart = seen[Array2D.toString cycleHead]
-    let cycleLength = seen.Count - cycleStart
+    let cycleStart = cycleSteps[Array2D.toString cycleHead]
+    let cycleLength = cycleSteps.Count - cycleStart
     let index = cycleStart + (1_000_000_000 - cycleStart) % cycleLength
 
-    seen
+    cycleSteps
     |> Seq.find (fun kv -> kv.Value = index)
     |> _.Key
     |> parse

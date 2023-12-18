@@ -25,7 +25,7 @@ let main args =
     let dayModule = getModule day
     let mi = getMethod dayModule args[1]
     let pt = getParamType mi
-    let print = printfn "%A"
+    let print = printfn "answer: %A"
 
     use _ = measureElapsedTime ()
     if pt = typeof<string> then
