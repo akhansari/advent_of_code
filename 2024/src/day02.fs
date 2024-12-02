@@ -4,12 +4,13 @@ open System
 
 let parse = splitLines >> Array.map (split " " >> Array.map Int32.Parse)
 
-let allDecreasing = Array.forall (fun (a, b) -> (b - a) >=< (-3, -1))
-let allIncreasing = Array.forall (fun (a, b) -> (b - a) >=< (1, 3))
-
-let isSafe nums =
-    let pairs = Array.pairwise nums
-    allDecreasing pairs || allIncreasing pairs
+let isSafe report =
+    Array.pairwise report
+    |> Array.sumBy (fun (a, b) ->
+        if b - a >=< (-3, -1) then -1
+        elif b - a >=< (1, 3) then 1
+        else 0)
+    |> fun sum -> abs sum = report.Length - 1
 
 let count =
     function
@@ -21,10 +22,10 @@ let runPartOne input =
 
 let runPartTwo input =
     parse input
-    |> Array.sumBy (fun nums ->
-        if isSafe nums then
+    |> Array.sumBy (fun report ->
+        if isSafe report then
             1
         else
-            [| 0 .. nums.Length - 1 |]
-            |> Array.exists (fun i -> nums |> Array.removeAt i |> isSafe)
+            seq { 0 .. report.Length - 1 }
+            |> Seq.exists (fun i -> report |> Array.removeAt i |> isSafe)
             |> count)
