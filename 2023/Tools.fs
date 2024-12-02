@@ -32,7 +32,7 @@ let extractInt64 str =
 let measureElapsedTime () =
     let sw = System.Diagnostics.Stopwatch.StartNew()
     { new IDisposable with
-        member _.Dispose() = printfn $"elapsed time: {sw.Elapsed}" }
+        member _.Dispose() = printfn $"Elapsed time: {sw.Elapsed}" }
 
 let print o = printfn $"%A{o}"; o
 let printAll o = Seq.iter (printfn "%A") o; o

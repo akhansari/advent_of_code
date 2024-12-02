@@ -1,0 +1,37 @@
+{
+  "version": "4",
+  "specifiers": {
+    "jsr:@es-toolkit/es-toolkit@^1.29.0": "1.29.0",
+    "jsr:@std/assert@*": "1.0.6",
+    "jsr:@std/assert@1": "1.0.6",
+    "jsr:@std/internal@^1.0.4": "1.0.4",
+    "npm:fp-ts@*": "2.16.9",
+    "npm:fp-ts@^2.16.9": "2.16.9"
+  },
+  "jsr": {
+    "@es-toolkit/es-toolkit@1.29.0": {
+      "integrity": "1f0e6d67236bab663d3c8089d815d735e2313069d9cba1741d9908081364d11f"
+    },
+    "@std/assert@1.0.6": {
+      "integrity": "1904c05806a25d94fe791d6d883b685c9e2dcd60e4f9fc30f4fc5cf010c72207",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    },
+    "@std/internal@1.0.4": {
+      "integrity": "62e8e4911527e5e4f307741a795c0b0a9e6958d0b3790716ae71ce085f755422"
+    }
+  },
+  "npm": {
+    "fp-ts@2.16.9": {
+      "integrity": "sha512-+I2+FnVB+tVaxcYyQkHUq7ZdKScaBlX53A41mxQtpIccsfyv8PzdzP7fzp2AY832T4aoK6UZ5WRX/ebGd8uZuQ=="
+    }
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@es-toolkit/es-toolkit@^1.29.0",
+      "jsr:@std/assert@1",
+      "npm:fp-ts@^2.16.9"
+    ]
+  }
+}
