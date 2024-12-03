@@ -1,7 +1,7 @@
 import gleam/dict
 import gleam/int
 import gleam/list
-import gleam/option
+import gleam/option.{None, Some}
 import gleam/result
 import gleam/string
 
@@ -35,17 +35,14 @@ pub fn run_part_one(input) {
 pub fn run_part_two(input) {
   let #(left, right) = parse(input)
 
-  let counts =
-    right
-    |> list.fold(dict.new(), fn(acc, num) {
-      acc
-      |> dict.upsert(num, fn(some_value) {
-        case some_value {
-          option.Some(v) -> v + num
-          option.None -> num
-        }
-      })
-    })
+  let counts = {
+    use acc, num <- list.fold(right, dict.new())
+    use old_num <- dict.upsert(acc, num)
+    case old_num {
+      Some(v) -> v + num
+      None -> num
+    }
+  }
 
   list.fold(left, 0, fn(acc, num) {
     acc + { counts |> dict.get(num) |> result.unwrap(0) }
