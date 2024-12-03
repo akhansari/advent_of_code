@@ -14,6 +14,8 @@ let runPartOne input =
 let runPartTwo input =
     let leftRight = parse input
 
+    // avoid multiple iterations over the right side
+
     let counts =
         leftRight[1]
         |> Array.fold
