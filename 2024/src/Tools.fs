@@ -27,8 +27,10 @@ let measureElapsedTime () =
     { new IDisposable with
         member _.Dispose() = printfn $"elapsed time: {sw.Elapsed}" }
 
+let printv o = printfn $"%A{o}"
+
 let print o =
-    printfn $"%A{o}"
+    printv o
     o
 
 let printAll o =
@@ -70,3 +72,6 @@ module Array2D =
             sb.Append(arr[x, *]).Append("\n") |> ignore
 
         sb.Remove(sb.Length - 1, 1).ToString()
+
+type ``[,]``<'T> with
+    member this.Get(x, y) = this[x, y]

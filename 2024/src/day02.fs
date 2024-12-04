@@ -4,7 +4,7 @@ open System
 
 let parse = splitLines >> Array.map (split " " >> Array.map Int32.Parse)
 
-// it's safe if the output map is an array of either 1 or -1
+// it's safe if the difference map is an array of either 1 or -1
 let isSafe report =
     Array.pairwise report
     |> Array.sumBy (fun (a, b) ->

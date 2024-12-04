@@ -8,10 +8,10 @@ const input = `3   4
 3   9
 3   3`;
 
-Deno.test("test day 01 part 1", () => {
+Deno.test("test part 1", () => {
   assertEquals(runPartOne(input), 11);
 });
 
-Deno.test("test day 01 part 2", () => {
+Deno.test("test part 2", () => {
   assertEquals(runPartTwo(input), 31);
 });
