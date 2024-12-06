@@ -1,12 +1,10 @@
 module Day05
 
-open System.Collections.Generic
-
 let parse input =
     let parts = input |> split "\n\n" |> Array.map splitLines
-    HashSet parts[0], parts[1] |> Array.map (split "," >> Array.map int >> Array.toList)
+    Set parts[0], parts[1] |> Array.map (split "," >> Array.map int >> Array.toList)
 
-let sort (orders: HashSet<_>) =
+let sort (orders: _ Set) =
     List.sortWith (fun a b -> if orders.Contains $"{a}|{b}" then -1 else 1)
 
 let sum = Array.sumBy (fun (nums: int list) -> nums[nums.Length / 2])

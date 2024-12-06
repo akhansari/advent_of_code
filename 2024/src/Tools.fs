@@ -39,11 +39,11 @@ let printAll o =
 
 module Array2D =
 
-    let find value (arr: _[,]) =
+    let find predicate (arr: _[,]) =
         let rec go x y =
             if y >= arr.GetLength 1 then None
             elif x >= arr.GetLength 0 then go 0 (y + 1)
-            elif arr[x, y] = value then Some(x, y)
+            elif predicate arr[x, y] then Some(x, y)
             else go (x + 1) y
 
         go 0 0
