@@ -60,10 +60,10 @@ let isXmas pos (arr: _[,]) =
 let runPartOne input =
     let arr = parse input
 
-    (0, arr) ||> Array2D.foldi (fun x y sum _ -> sum + countXmas (x, y) arr)
+    (0, arr) ||> Array2D.foldi (fun x y _ sum -> sum + countXmas (x, y) arr)
 
 let runPartTwo input =
     let arr = parse input
 
     (0, arr)
-    ||> Array2D.foldi (fun x y sum _ -> if isXmas (x, y) arr then sum + 1 else sum)
+    ||> Array2D.foldi (fun x y _ sum -> if isXmas (x, y) arr then sum + 1 else sum)

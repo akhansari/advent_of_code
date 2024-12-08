@@ -9,7 +9,7 @@ let parse input =
 
     let start, obstructions =
         (((0, 0), Set.empty), arr)
-        ||> Array2D.foldi (fun x y (start, obstructions) c ->
+        ||> Array2D.foldi (fun x y c (start, obstructions) ->
             match c with
             | '#' -> (start, Set.add (x, y) obstructions)
             | '^' -> ((x, y), obstructions)

@@ -48,12 +48,12 @@ module Array2D =
 
         go 0 0
 
-    let foldi (folder: int -> int -> 'S -> 'T -> 'S) (state: 'S) (array: 'T[,]) =
+    let foldi (folder: int -> int -> 'T -> 'S -> 'S) (state: 'S) (array: 'T[,]) =
         let mutable state = state
 
         for x in 0 .. Array2D.length1 array - 1 do
             for y in 0 .. Array2D.length2 array - 1 do
-                state <- folder x y state array[x, y]
+                state <- folder x y array[x, y] state
 
         state
 
@@ -72,6 +72,15 @@ module Array2D =
             sb.Append(arr[x, *]).Append("\n") |> ignore
 
         sb.Remove(sb.Length - 1, 1).ToString()
+
+module Point =
+
+    let subtract (x1, y1) (x2, y2) = (x1 - x2, y1 - y2)
+
+    let add (x1, y1) (x2, y2) = (x1 + x2, y1 + y2)
+
+    let inBound rows cols (x, y) =
+        x >= 0 && x < rows && y >= 0 && y < cols
 
 type ``[,]``<'T> with
     member this.Get(x, y) = this[x, y]
