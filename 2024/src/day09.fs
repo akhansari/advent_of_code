@@ -58,12 +58,11 @@ let runPartTwo (input: string) =
     let ll = LinkedList()
     let files = Stack()
 
-    input
-    |> Seq.iteri (fun i c ->
-        let len = c |> string |> int
+    for i = 0 to input.Length - 1 do
+        let len = input[i] |> string |> int
         if (i + 1) % 2 = 0
         then FreeSpace len |> ll.AddLast |> ignore
-        else File (i / 2, len) |> ll.AddLast |> files.Push)
+        else File (i / 2, len) |> ll.AddLast |> files.Push
 
     while files.Count > 0 do
         let file = files.Pop()
@@ -71,20 +70,23 @@ let runPartTwo (input: string) =
         while node <> null && node <> file do
             match node.Value, file.Value with
             | FreeSpace freeSpaceLen, File (id, fileLen) when freeSpaceLen >= fileLen ->
-                let fileBefore = node.Previous
-                ll.Remove node
+                // remove the file and replace it with free space
                 ll.AddAfter(file.Previous, FreeSpace fileLen) |> ignore
                 ll.Remove file
+                // remove the current free space and get the file before it
+                let fileBefore = node.Previous
+                ll.Remove node
+                // now add a new file at current position
                 let newBlock = ll.AddAfter(fileBefore, File (id, fileLen))
+                // then add the remaining free space
                 let diff = freeSpaceLen - fileLen
-                if diff > 0 then
-                    ll.AddAfter(newBlock, FreeSpace diff) |> ignore
+                if diff > 0 then ll.AddAfter(newBlock, FreeSpace diff) |> ignore
             | _ -> ()
             node <- node.Next
 
     seq {
-        for node in ll do
-            match node with
+        for block in ll do
+            match block with
             | File (id, len) -> for _ in 1 .. len do id
             | FreeSpace len -> for _ in 1 .. len do -1
     }
