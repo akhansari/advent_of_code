@@ -3,7 +3,6 @@ module Tools
 
 open System
 open System.IO
-open System.Text.RegularExpressions
 
 let inline (>=<) num (left, right) = num >= left && num <= right
 
@@ -23,15 +22,11 @@ let split (sep: string) (str: string) =
 
 let measureElapsedTime () =
     let sw = Diagnostics.Stopwatch.StartNew()
-
     { new IDisposable with
         member _.Dispose() = printfn $"elapsed time: {sw.Elapsed}" }
 
 let printv o = printfn $"%A{o}"
-
-let print o =
-    printv o
-    o
+let print o = printv o; o
 
 let printAll o =
     Seq.iter (printfn "%A") o
@@ -45,16 +40,13 @@ module Array2D =
             elif x >= arr.GetLength 0 then go 0 (y + 1)
             elif predicate arr[x, y] then Some(x, y)
             else go (x + 1) y
-
         go 0 0
 
     let foldi (folder: int -> int -> 'T -> 'S -> 'S) (state: 'S) (array: 'T[,]) =
         let mutable state = state
-
         for x in 0 .. Array2D.length1 array - 1 do
             for y in 0 .. Array2D.length2 array - 1 do
                 state <- folder x y array[x, y] state
-
         state
 
     let inBound (x, y) (arr: _[,]) =
@@ -65,12 +57,12 @@ module Array2D =
     let copy (arr: _[,]) =
         Array2D.init (Array2D.length1 arr) (Array2D.length2 arr) (fun x y -> arr[x, y])
 
+    let fromString = splitLines >> Seq.map Array.ofSeq >> array2D
+
     let toString (arr: _[,]) =
         let sb = Text.StringBuilder()
-
         for x in 0 .. Array2D.length1 arr - 1 do
             sb.Append(arr[x, *]).Append("\n") |> ignore
-
         sb.Remove(sb.Length - 1, 1).ToString()
 
 module Point =
@@ -84,3 +76,4 @@ module Point =
 
 type ``[,]``<'T> with
     member this.Get(x, y) = this[x, y]
+
