@@ -32,6 +32,11 @@ let printAll o =
     Seq.iter (printfn "%A") o
     o
 
+let (|ValueOfKey|_|) key (dict: Collections.Generic.IReadOnlyDictionary<'K, 'V>) =
+    match dict.TryGetValue key with
+    | true, value -> Some value
+    | _ -> None
+
 module Array2D =
 
     let find predicate (arr: _[,]) =
