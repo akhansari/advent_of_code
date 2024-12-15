@@ -79,6 +79,17 @@ module Point =
     let inBound rows cols (x, y) =
         x >= 0 && x < rows && y >= 0 && y < cols
 
+    type Direction =
+        | Left | Right | Up | Down
+
+    let FourDirections = [ Left; Right; Up; Down ]
+
+    let nextPos (x, y) = function
+        | Right -> (x, y + 1)
+        | Left  -> (x, y - 1)
+        | Down  -> (x + 1, y)
+        | Up    -> (x - 1, y)
+
 type ``[,]``<'T> with
     member this.Get(x, y) = this[x, y]
 
