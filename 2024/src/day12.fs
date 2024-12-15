@@ -7,7 +7,7 @@ let isEdge (region: Set<_>) pos dir =
     Point.nextPos pos dir |> region.Contains |> not
 
 let isCorner (region: Set<_>) (p1, p2, p3) =
-    // 90° and 270°
+    // 90° or 270°
     (region.Contains p1 && not (region.Contains p2) && region.Contains p3) ||
     not (region.Contains p1 || region.Contains p3)
 
