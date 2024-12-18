@@ -4,6 +4,9 @@ module Tools
 open System
 open System.IO
 
+// modulo (and not remainder) operator
+let (%%) (a: int) (b: int) = (a % b + b) % b
+
 let inline (>=<) num (left, right) = num >= left && num <= right
 
 let private getPath day =
@@ -72,15 +75,14 @@ module Array2D =
 
 module Point =
 
-    let subtract (x1, y1) (x2, y2) = (x1 - x2, y1 - y2)
-
     let add (x1, y1) (x2, y2) = (x1 + x2, y1 + y2)
+    let subtract (x1, y1) (x2, y2) = (x1 - x2, y1 - y2)
+    let multiply (x1, y1) (x2, y2) = (x1 * x2, y1 * y2)
 
     let inBound rows cols (x, y) =
         x >= 0 && x < rows && y >= 0 && y < cols
 
-    type Direction =
-        | Left | Right | Up | Down
+    type Direction = | Left | Right | Up | Down
 
     let FourDirections = [ Left; Right; Up; Down ]
 

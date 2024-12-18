@@ -24,22 +24,17 @@ let minTokens machine =
     let bx, by = machine.ButtonB
     let px, py = machine.Prize
 
-    let bNumerator = py * ax - px * ay
-    let bDenominator = by * ax - bx * ay
-
-    if bNumerator % bDenominator <> 0 then
-        None
-    else
-        let bPresses = bNumerator / bDenominator
-
-        let aPressesNumerator = px - bPresses * bx
-        let aPressesDenominator = ax
-
-        if aPressesNumerator % aPressesDenominator <> 0 then
+    match (px * by - py * bx), (ax * by - ay * bx) with
+    | tan, tad when tan % tad = 0L ->
+        let ta = tan / tad
+        match (px - ta * ax), bx with
+        | tbn, tbd when tbn % tbd = 0L ->
+            let tb = tbn / tbd
+            Some (ta * 3L + tb)
+        | _ ->
             None
-        else
-            let aPresses = aPressesNumerator / aPressesDenominator
-            Some(aPresses * 3L + bPresses)
+    | _ ->
+        None
 
 let sumTokens map machines =
     machines |> Array.sumBy (fun m ->
@@ -57,5 +52,28 @@ let runPartTwo input =
         { m with Prize = (fst m.Prize + error, snd m.Prize + error) })
 
 (*
-Linear Diophantine equation for integers
+if button A to prize and button B to prize are not parallel lines, they can cross only once.
+    So there is only one solution and it dosen't make sens to calculate a minimum number of tokens.
+
+px = (ta * ax) + (tb * bx)
+py = (ta * ay) + (tb * by)
+
+multiply by 'bx' and 'by'
+
+px * by = (ta * ax * by) + (tb * bx * by)
+py * bx = (ta * ay * bx) + (tb * by * by)
+
+substract both equations
+
+(px * by) - (py * bx) = (ta * ax * by) - (ta * ay * bx)
+(px * by) - (py * bx) = ta * ((ax * by) - (ay * bx))
+
+ta = (px * by - py * bx) / (ax * by - ay * bx)
+
+(ax * by - ay * bx) could never be zero because it means that button A and button B are parallel.
+now that we have ta, we can calculate tb.
+
+tb = (px - ta * ax) / bx
+
+finally, we need to check that ta and tb are integers.
 *)
