@@ -67,11 +67,11 @@ module Array2D =
 
     let fromString = splitLines >> Seq.map Array.ofSeq >> array2D
 
-    let toString (arr: _[,]) =
+    let print (arr: _[,]) =
         let sb = Text.StringBuilder()
         for x in 0 .. Array2D.length1 arr - 1 do
             sb.Append(arr[x, *]).Append("\n") |> ignore
-        sb.Remove(sb.Length - 1, 1).ToString()
+        sb.Remove(sb.Length - 1, 1).ToString() |> printfn "%s"
 
 module Point =
 

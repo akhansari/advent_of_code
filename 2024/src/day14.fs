@@ -16,8 +16,8 @@ let parse input =
 let printGrid robots =
     let grid = Array2D.create Height Width '.'
     for (x, y) in robots do
-        grid[y, x] <- '1'
-    Array2D.toString grid |> printfn "%s"
+        grid[y, x] <- '#'
+    Array2D.print grid
 
 let teleport sec =
     Array.map (fun (px, py, vx, vy) ->
