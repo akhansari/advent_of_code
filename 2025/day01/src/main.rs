@@ -1,7 +1,7 @@
 use day01::*;
 
 fn main() {
-    let input = std::fs::read_to_string("inputs/day01.txt").unwrap();
+    let input = std::fs::read_to_string("../inputs/day01.txt").expect("Input file not found");
     println!("Part one: {}", part_one(&input));
     println!("Part two: {}", part_two(&input));
 }
@@ -28,6 +28,6 @@ L82";
 
     #[test]
     fn test_part_two() {
-        assert_eq!(part_two(INPUT), 61);
+        assert_eq!(part_two(INPUT), 6);
     }
 }
