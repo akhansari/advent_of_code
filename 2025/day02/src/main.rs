@@ -1,9 +1,20 @@
 use day02::*;
+use std::time::Instant;
 
 fn main() {
     let input = std::fs::read_to_string("../inputs/day02.txt").expect("Input file not found");
+
     println!("Part one: {}", part_one(&input));
-    println!("Part two: {}", part_two(&input));
+
+    let mut now = Instant::now();
+    println!("Part two: {}, in {:.2?}", part_two(&input), now.elapsed());
+
+    now = Instant::now();
+    println!(
+        "Part two regex: {}, in {:.2?}",
+        part_two_regex(&input),
+        now.elapsed()
+    );
 }
 
 #[cfg(test)]
