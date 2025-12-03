@@ -1,4 +1,4 @@
-fn load(input: &str) -> Vec<(u64, u64)> {
+fn parse(input: &str) -> Vec<(u64, u64)> {
     input
         .trim()
         .split(',')
@@ -15,7 +15,7 @@ fn sum<F>(input: &str, predicate: F) -> u64
 where
     F: Fn(&u64) -> bool,
 {
-    load(input)
+    parse(input)
         .into_iter()
         .flat_map(|(start, end)| (start..=end).filter(&predicate))
         .sum()

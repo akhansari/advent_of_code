@@ -1,11 +1,11 @@
 const DIVISOR: i32 = 100;
 
-fn load(input: &str) -> Vec<String> {
+fn parse(input: &str) -> Vec<String> {
     input.lines().map(str::to_owned).collect()
 }
 
 pub fn part_one(input: &str) -> i32 {
-    load(input)
+    parse(input)
         .iter()
         .fold((50, 0), |(clicks, password), line| {
             let num: i32 = line[1..].parse().expect("Invalid number");
@@ -20,7 +20,7 @@ pub fn part_one(input: &str) -> i32 {
 }
 
 pub fn part_two(input: &str) -> i32 {
-    load(input)
+    parse(input)
         .iter()
         .fold((50, 0), |(clicks, password), line| {
             let num: i32 = line[1..].parse().expect("Invalid number");
