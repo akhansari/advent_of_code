@@ -18,7 +18,7 @@ fn largest_subseq(batteries: &[u64], seq_len: usize) -> u64 {
         let threshold = seq_len.saturating_sub(batteries.len() - i); // Don't go below 0
         while selected
             .last()
-            .is_some_and(|&top| top < bat && selected.len() > threshold)
+            .is_some_and(|&top| bat > top && selected.len() > threshold)
         {
             selected.pop();
         }
