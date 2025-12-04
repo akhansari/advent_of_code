@@ -3,7 +3,8 @@ use day04::*;
 fn main() {
     let input = std::fs::read_to_string("../inputs/day04.txt").expect("Input file not found");
     println!("Part one: {}", part_one(&input));
-    println!("Part two: {}", part_two(&input));
+    let now = std::time::Instant::now();
+    println!("Part two: {} in {:.2?}", part_two(&input), now.elapsed());
 }
 
 #[cfg(test)]
