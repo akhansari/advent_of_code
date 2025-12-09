@@ -15,10 +15,10 @@ fn parse(input: &str) -> Polygon {
 }
 
 pub fn part_one(input: &str) -> usize {
-    let points = parse(input);
+    let polygon = parse(input);
     let mut max_area = 0;
-    for (i, &(x1, y1)) in points.iter().enumerate() {
-        for &(x2, y2) in &points[i + 1..] {
+    for (i, &(x1, y1)) in polygon.iter().enumerate() {
+        for &(x2, y2) in &polygon[i + 1..] {
             if x1 != x2 && y1 != y2 {
                 let area = (x1.abs_diff(x2) + 1) * (y1.abs_diff(y2) + 1);
                 max_area = max_area.max(area);
