@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 type Point = (usize, usize);
 type Polygon = Vec<Point>;
-type SegmentMap = HashMap<usize, Vec<(usize, usize)>>;
+type SegmentMap = HashMap<usize, Polygon>;
 
 fn parse(input: &str) -> Polygon {
     input
