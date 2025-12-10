@@ -5,3 +5,4 @@ edition = "2024"
 
 [dependencies]
 regex = "1.*"
+microlp = "0.2"

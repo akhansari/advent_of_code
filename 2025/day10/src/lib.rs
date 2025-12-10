@@ -58,7 +58,33 @@ pub fn part_one(input: &str) -> usize {
     machines.iter().map(fewest_presses).sum()
 }
 
+fn fewest_presses_joltage(machine: &Machine) -> usize {
+    use microlp::{ComparisonOp, OptimizationDirection, Problem};
+
+    let mut problem = Problem::new(OptimizationDirection::Minimize);
+
+    let vars: Vec<_> = (0..machine.buttons.len())
+        .map(|_| problem.add_var(1.0, (0.0, f64::INFINITY)))
+        .collect();
+
+    for (counter, &target) in machine.joltage.iter().enumerate() {
+        let constraint: Vec<_> = machine
+            .buttons
+            .iter()
+            .enumerate()
+            .filter(|(_, btn)| btn.contains(&counter))
+            .map(|(i, _)| (vars[i], 1.0))
+            .collect();
+        problem.add_constraint(&constraint, ComparisonOp::Eq, target as f64);
+    }
+
+    problem
+        .solve()
+        .map(|sol| vars.iter().map(|&v| sol[v].round() as usize).sum())
+        .unwrap_or(usize::MAX)
+}
+
 pub fn part_two(input: &str) -> usize {
-    let _machines = parse(input);
-    0
+    let machines = parse(input);
+    machines.iter().map(fewest_presses_joltage).sum()
 }
