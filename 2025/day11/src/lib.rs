@@ -11,24 +11,6 @@ fn parse(input: &str) -> HashMap<&str, Vec<&str>> {
         .collect()
 }
 
-pub fn part_one(input: &str) -> usize {
-    let graph = parse(input);
-    let mut count = 0;
-    let mut stack = vec!["you"];
-    while let Some(node) = stack.pop() {
-        if let Some(children) = graph.get(&node) {
-            for &child in children {
-                if child == "out" {
-                    count += 1;
-                } else {
-                    stack.push(child);
-                }
-            }
-        }
-    }
-    count
-}
-
 fn count_paths<'a>(
     graph: &HashMap<&'a str, Vec<&'a str>>,
     node: &'a str,
@@ -58,6 +40,11 @@ fn count_paths<'a>(
 
     memo.insert(node, count);
     count
+}
+
+pub fn part_one(input: &str) -> usize {
+    let graph = parse(input);
+    count_paths(&graph, "you", &[], &mut HashMap::new())
 }
 
 pub fn part_two(input: &str) -> usize {
