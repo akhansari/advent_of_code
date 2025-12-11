@@ -33,7 +33,7 @@ fn count_paths<'a>(
     graph: &HashMap<&'a str, Vec<&'a str>>,
     node: &'a str,
     avoid: &[&str],
-    memo: &mut HashMap<(&'a str, usize), usize>,
+    memo: &mut HashMap<&'a str, usize>,
 ) -> usize {
     if node == "out" {
         return 1;
@@ -42,9 +42,7 @@ fn count_paths<'a>(
         return 0;
     }
 
-    let avoid_key = avoid.as_ptr() as usize;
-    let state = (node, avoid_key);
-    if let Some(&cached) = memo.get(&state) {
+    if let Some(&cached) = memo.get(&node) {
         return cached;
     }
 
@@ -58,7 +56,7 @@ fn count_paths<'a>(
         })
         .unwrap_or(0);
 
-    memo.insert(state, count);
+    memo.insert(node, count);
     count
 }
 
