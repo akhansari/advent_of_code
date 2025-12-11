@@ -23,7 +23,6 @@ fn count_paths<'a>(
     if avoid.contains(&node) {
         return 0;
     }
-
     if let Some(&cached) = memo.get(&node) {
         return cached;
     }
@@ -43,8 +42,7 @@ fn count_paths<'a>(
 }
 
 pub fn part_one(input: &str) -> usize {
-    let graph = parse(input);
-    count_paths(&graph, "you", &[], &mut HashMap::new())
+    count_paths(&parse(input), "you", &[], &mut HashMap::new())
 }
 
 pub fn part_two(input: &str) -> usize {
